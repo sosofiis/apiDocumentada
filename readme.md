@@ -85,4 +85,11 @@ Rodar o comando no terminal com gitBash
 npm run start
 ```
 
+##  Criar estrutura para o projeto
+
+Criar arquivo app.js na pasta src
+```
+touch src/app.js
+```
+
 
