@@ -1,28 +1,33 @@
 // Importar pacote do express
-const express = require('express');
+const { Router } = require('express');
 
 // Instanciar  o Router na variável router
-const router = express.Router();
+const router = Router();
 
 //Criando rota get
-router.get('/api/:id', (request, response) => {
+router.get('/api', (request, response) => {
     response.send('Retorno de informações do banco de dados');
+    console.log('get');
 });
 
 // Criando rota post
-router.post('/api/:id', (request, response) => {
+router.post('/api', (request, response) => {
     response.send('Método utilizado para salvar informações');
+    console.log('post');
 });
 
 // Criando rota put
 router.put('/api/:id', (request, response) => {
     response.send('Método utilizado para editar informações');
+    console.log('put');
+    console.log('id:', request.params.id);
 });
 
 // Criando rota delete
 router.delete('/api/:id', (request, response) => {
     response.send('Método utilizado para deletar informações');
+    console.log('delete');
 });
 
-// 
-modules.exports = router;
+// Exportar as configurações do app para outros arquivos acessarem
+module.exports = router;
