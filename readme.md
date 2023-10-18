@@ -84,6 +84,7 @@ Rodar o comando no terminal com gitBash
 ```
 npm run start
 ```
+<hr>
 
 ##  Criar estrutura para o projeto
 
@@ -116,11 +117,13 @@ Criar arquivo crudRouter.js dentro da pasta routes (só funciona no gitBash)
 nano crudRouter.js
 ```
 
+<hr>
 Como gerenciar arquivos com o nano:
 
 * Ctrl + O: Salvar o arquivo
 * Enter: Confirmar nome do arquivo
 * Ctrl + X: Fechar o arquivo
+<hr>
 
 Digitar o código no arquivo criado
 ```
@@ -157,5 +160,20 @@ router.delete('/api/:id', (request, response) => {
 
 // Exportar as configurações do app para outros arquivos acessarem
 module.exports = router;
+```
+
+## CRIAÇÃO DE CONTROLLERS
+
+* Arquivos para processar as requisições das rotas.
+<hr>
+
+Criar pasta de controllers
+```
+mkdir src/controllers
+```
+
+Criar arquivo controller.js
+```
+touch src/controllers/controller.js
 ```
 
