@@ -134,29 +134,24 @@ const { Router } = require('express');
 const router = Router();
 
 // Importar funções do controller para a rota acessar
-const { listarDados } = require('../controllers/controller');
+const { 
+    listarDados,
+    gravarDados,
+    atualizarDados,
+    deletarDados
+ } = require('../controllers/controller');
 
 //Criando rota get
-router.get('/api', listarDados);
+router.get('/listar', listarDados);
 
 // Criando rota post
-router.post('/api', (request, response) => {
-    response.send('Método utilizado para salvar informações');
-    console.log('post');
-});
+router.post('/gravar', gravarDados);
 
 // Criando rota put
-router.put('/api/:id', (request, response) => {
-    response.send('Método utilizado para editar informações');
-    console.log('put');
-    console.log('id:', request.params.id);
-});
+router.put('/atualizar/:id', atualizarDados);
 
 // Criando rota delete
-router.delete('/api/:id', (request, response) => {
-    response.send('Método utilizado para deletar informações');
-    console.log('delete');
-});
+router.delete('/deletar/:id', deletarDados);
 
 // Exportar as configurações do app para outros arquivos acessarem
 module.exports = router;
@@ -181,10 +176,24 @@ Criar funções para processar as requisições das rotas
 ```
 function listarDados(request, response){
     response.send('Retorno de informações do banco de dados');
-    console.log('get');
 }
 
-exports.module = {
-    listarDados
+function gravarDados(request, response){
+    response.send('Método utilizado para salvar informações');
+}
+
+function atualizarDados(request, response){
+    response.send('Método utilizado para editar informações');
+}
+
+function deletarDados(request, response){
+    response.send('Método utilizado para deletar informações');
+}
+
+module.exports = {
+    listarDados, 
+    gravarDados,
+    atualizarDados,
+    deletarDados
 }
 ```
