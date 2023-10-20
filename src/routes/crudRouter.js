@@ -1,8 +1,8 @@
 // Importar pacote do express
-const { Router }      = require('express');
+const { Router } = require('express');
 
 // Instanciar  o Router na variável router
-const router          = Router();
+const router = Router();
 
 // Importar funções do controller para a rota acessar
 const { listarDados } = require('../controllers/controller');

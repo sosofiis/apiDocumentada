@@ -3,6 +3,6 @@ function listarDados(request, response){
     console.log('get');
 }
 
-exports.module = {
+module.exports = {
     listarDados
 }
