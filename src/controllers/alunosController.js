@@ -40,11 +40,11 @@ async function cadastrarAluno(request, response) {
     // Recuperando dados da requisição
     const params = Array(
         request.body.nome,
-        request.body.dt_nasc,
+        request.body.dt_nascimento,
         request.body.time_do_coracao
     );
 
-    const query = 'INSERT INTO alunos(nome, dt_nasc, time_do_coracao) values(?, ?, ?);';
+    const query = 'INSERT INTO alunos(nome, dt_nascimento, time_do_coracao) values(?, ?, ?);';
 
     connection.query(query, params, (err, results) => {
         console.log(err);
@@ -63,11 +63,11 @@ async function cadastrarAluno(request, response) {
 
 async function update (request, response) {
     // Comando SQL
-    const query = "UPDATE alunos nome = ?, dt_nasc = ?, time_do_coracao = ? WHERE id = ?;";
-
+    const query = "UPDATE alunos SET nome = ?, dt_nascimento = ?, time_do_coracao = ? WHERE id = ?;";
+    
     const params = Array(
-        request.body.name,
-        request.body.dt_nasc,
+        request.body.nome,
+        request.body.dt_nascimento,
         request.body.time_do_coracao,
         request.params.id
     )
@@ -81,6 +81,72 @@ async function update (request, response) {
                     message: "Aluno atualizado com sucesso!",
                     data: results
                 })
+        } else {
+            response
+                .status(400)
+                .json({
+                    sucess: false,
+                    message: "Aluno não atualizado!",
+                    error: err
+                })
+        }
+    })
+}
+
+async function deleteAluno (request, response) {
+    // Comando SQL
+    const query = "DELETE FROM alunos WHERE id = ?;";
+    
+    const params = Array(
+        request.params.id
+    )
+
+    connection.query(query, params, (err, results) =>{
+        if(results) {
+            response
+                .status(200)
+                .json({
+                    sucess: true,
+                    message: "Aluno removido com sucesso!",
+                    data: results
+                })
+        } else {
+            response
+                .status(400)
+                .json({
+                    sucess: false,
+                    message: "Aluno não removido!",
+                    mysql: err
+                })
+        }
+    })
+}
+
+async function selecionarAlunoId(request, response) {
+    // Comando SQL
+    const query = "SELECT * FROM alunos WHERE id = ?;";
+    
+    const params = Array(
+        request.params.id
+    )
+
+    connection.query(query, params, (err, results) =>{
+        if(results) {
+            response
+                .status(200)
+                .json({
+                    sucess: true,
+                    message: "Aluno selecionado com sucesso!",
+                    data: results
+                })
+        } else {
+            response
+                .status(400)
+                .json({
+                    sucess: false,
+                    message: "Aluno não encontrado!",
+                    mysql: err
+                })
         }
     })
 }
@@ -88,5 +154,7 @@ async function update (request, response) {
 module.exports = {
     listarUsuarios,
     cadastrarAluno,
-    update
+    update,
+    deleteAluno,
+    selecionarAlunoId
 };
