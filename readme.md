@@ -1,4 +1,4 @@
-# Documentação da API
+# Documentação para contrução da API com node.js
 * Escolher local do computador para criar a pasta do proejto
 * Abrir o gitBash nesta pasta
 
@@ -22,25 +22,30 @@ Iniciar o gerenciador de pacotes Node
 ```
 npm init -y
 ```
+* Cria o arquivo package.json para gerenciar os pacotes da aplicação
+
+# Instalar pacotes da API
+```
+npm i express nodemon dotenv mysql2
+```
+* express: será o servidor da API;
+* nodemon: atualizar os arquivos alterados sem parar o servidor;
+* dotenv: gerenciador de variáveis de ambiente;
+* mysql2: integrar aplicação com o banco de dados.
+
+<hr>
 
 Criar arquivo .gitignore (arquivos e pastas que não vão para o gitHub)
 ```
 touch .gitignore
 ```
+* Arquivo responsável por ignorar arquivos e pastas no gitHub, ou seja, não serão visíveis no repositório remoto.
 
 Criar arquivo .env (armazenará as variáveis do ambiente)
 ```
 touch .env
 ```
-
-Instalar pacotes da API
-```
-npm i express nodemon dotenv mysql2
-```
-* express: será o servidor da API
-* nodemon: atualizar os arquivos alterados sem parar o servidor
-* dotenv: gerenciador de variáveis de ambiente
-* mysql2: ligar com o banco de dados
+* Arquivo responsável por armazenar as variáveis de ambiente.
 
 Informar arquivos e pastas no .gitignore
 ```
@@ -52,25 +57,21 @@ Criar pasta src para estrutura do projeto
 ```
 mkdir src
 ```
+* Pasta responsável por organizar a estrutura da aplicação.
 
 Criar arquivo server.js na pasta src
 ```
 touch src/server.js
 ```
+* Arquivo responsável por rodar a aplicação.
 
-Configurar o servidor 
+Colar o código de configuração no arquivo 'server.js'
 ```
-// Importar pacote do express
-const express = require('express');
+// Importar o arquivo de configuração
+const app = require('./app');
 
-// Instanciar o express na variável app
-const app = express();
-
-// Importar o pacote dotenv
-const dotenv = require('dotenv').config();
-
-// Definir a porta do servidor
-const PORT = process.env.port || 3005;
+// Importar a porta do servidor
+const PORT = app.get('port');
 
 // Testar servidor
 app.listen(PORT, () => console.log(`Running at the port ${PORT}`))
