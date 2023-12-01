@@ -3,26 +3,26 @@
 * Abrir o gitBash nesta pasta
 
 
-Criar a pasta
+Criar a pasta:
 ```
 mkdir NOME_PROJETO
 ```
 
-Acessar a pasta do projeto
+Acessar a pasta do projeto:
 ```
 cd NOME_PROJETO
 ```
 
-Abrir a pasta no VSCode
+Abrir a pasta no VSCode:
 ```
 code .
 ```
 
-Iniciar o gerenciador de pacotes Node
+Iniciar o gerenciador de pacotes Node:
 ```
 npm init -y
 ```
-* Cria o arquivo package.json para gerenciar os pacotes da aplicação
+* Cria o arquivo package.json para gerenciar os pacotes da aplicação.
 
 # Instalar pacotes da API
 ```
@@ -35,37 +35,59 @@ npm i express nodemon dotenv mysql2
 
 <hr>
 
-Criar arquivo .gitignore (arquivos e pastas que não vão para o gitHub)
+Criar arquivo .gitignore (arquivos e pastas que não vão para o gitHub):
 ```
 touch .gitignore
 ```
 * Arquivo responsável por ignorar arquivos e pastas no gitHub, ou seja, não serão visíveis no repositório remoto.
 
-Criar arquivo .env (armazenará as variáveis do ambiente)
+Criar o arquivo .env
+
 ```
 touch .env
 ```
-* Arquivo responsável por armazenar as variáveis de ambiente.
 
-Informar arquivos e pastas no .gitignore
+Criar arquivo .env.example(armazenará as variáveis do ambiente):
+```
+touch .env.example
+```
+* Arquivo responsável por definir as variáveis de ambiente sem os valores.
+
+Colar as variáveis no arquivo '.env.example'
+```
+# Definição da porta do servidor express
+PORT =
+
+# Variáveis de conexão com banco
+DB_HOST =
+DB_USER =
+DB_PASSWORD =
+DB_DATABASE =
+DB_PORT =
+```
+* Por padrão, o pacote mysql2 espera a conexão com o banco na porta 3306;
+* Se o MySQL não foi instalado na porta 3306, precisamos informar a porta do MySQL no arquivo '.env' e recuperar no arquivo 'db.js' para acessar o banco;
+* A chave 'DB_PORT' só é necessária caso o MySQL não esteja instalado na porta 3306.
+
+Informar arquivos e pastas no .gitignore:
 ```
 node_modules 
 .env
 ```
 
-Criar pasta src para estrutura do projeto
+Criar pasta src para estrutura do projeto:
 ```
 mkdir src
 ```
 * Pasta responsável por organizar a estrutura da aplicação.
 
-Criar arquivo server.js na pasta src
+Criar arquivo server.js na pasta src:
 ```
 touch src/server.js
 ```
 * Arquivo responsável por rodar a aplicação.
 
-Colar o código de configuração no arquivo 'server.js'
+Colar o código de configuração no arquivo 'server.js':
 ```
 // Importar o arquivo de configuração
 const app = require('./app');
@@ -77,10 +99,53 @@ const PORT = app.get('port');
 app.listen(PORT, () => console.log(`Running at the port ${PORT}`))
 ```
 
-Criar comando para rodar o servidor no arquivo package.json
+Criar arquivo app.js na pasta src:
+```
+touch src/app.js
+```
+* Arquivo responsável por configurar a aplicação.
+
+Colar o código de configuração no arquivo 'app.js'
+```
+// Importar pacote do express
+const express = require('express');
+
+// Instanciar o express na variável app
+const app = express();
+app.use(express.json());
+
+// Importar as rotas para serem executadas na aplicação
+const crudRouter = require('./routes/crudRouter');
+
+// Importar as rotas para serem executadas na aplicação
+const alunosRouter = require('./routes/alunosRouter');
+
+// Importar o pacote dotenv
+const dotenv = require('dotenv').config();
+
+// Habilita a utilização do crudRouter
+app.use('/api', crudRouter);
+
+// Habilita a utilização do alunosRouter
+app.use('/api', alunosRouter);
+
+// Seleciona uma porta para usar no app
+app.set('port', process.env.PORT);
+
+// Exportando a configuração do app para outros arquivos acessarem
+module.exports = app;
+```
+
+Criar comando para rodar o servidor no arquivo 'package.json'
 ```
 "start":"nodemon src/server.js"
 ```
+* Substituir o comando "test" dentro da chave "scripts" pelo comando start acima;
+* Este comando é responsável por rodar a API.
+
+Após esta configuração oarquivo 'package.json' deve estar conforme a imagem abaixo:
+
+<img src="./imagens/package_json.png">
 
 Rodar o comando no terminal com gitBash
 ```
